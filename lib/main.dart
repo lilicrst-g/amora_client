@@ -1,3 +1,4 @@
+import 'package:amora_client/basket/basket_page.dart';
 import 'package:amora_client/home/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      // home: HomePage(),
+      routes: {
+        '/': (_) => HomePage(),
+        BasketPage.routeName: (_) => BasketPage() 
+      }
     );
   }
 }
