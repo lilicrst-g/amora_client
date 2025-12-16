@@ -1,4 +1,6 @@
+import 'package:amora_client/dto/basket_dto.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BasketPage extends StatefulWidget {
   static const String routeName = '/basket_page';
@@ -11,11 +13,11 @@ class BasketPage extends StatefulWidget {
 
 class _BasketPageState extends State<BasketPage> {
   String id = '';
-  String title = 'Cesta de Presente Premium';
-  double price = 227.90;
-  String description =
-      "Esta cesta exclusiva é a combinação perfeita de sofisticação e sabor. Inclui uma seleção de vinhos tintos premium, chocolates belgas artesanais, biscoitos finos e uma linda embalagem reutilizável. Ideal para ocasiões especiais ou para um presente inesquecível. Garantia de frescor e alta qualidade.";
-  String productImagePath = 'assets/images/cesta.jpg';
+  String title = '';
+  double price = 0;
+  String description = '';
+  String productImagePath = '';
+  late BasketDto dto;
   final Color themeColor = const Color.fromRGBO(172, 121, 179, 1.0);
 
   @override
@@ -30,6 +32,14 @@ class _BasketPageState extends State<BasketPage> {
         price = param?['price'] ?? 0;
         description = param?['description'] ?? '';
         productImagePath = param?['imagePath'] ?? '';
+        dto =
+            param?['dto'] ??
+            BasketDto(
+              id: id,
+              name: title,
+              price: price,
+              description: description,
+            );
       });
     });
   }
@@ -51,8 +61,7 @@ class _BasketPageState extends State<BasketPage> {
 
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               height: 430,
@@ -114,7 +123,9 @@ class _BasketPageState extends State<BasketPage> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
+            final uri = Uri.parse('https://wa.me/+5584988648709?text=${dto.toMessage()}');
+            await launchUrl(uri);
             print('BOTÃO COMPRAR CLICADO! Produto: $title');
           },
           style: ElevatedButton.styleFrom(

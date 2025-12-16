@@ -15,10 +15,10 @@ class BasketDto {
 
   factory BasketDto.fromJson(dynamic json) {
     return BasketDto(
-      id: json['id'] as String,      
-      name: json['name'] as String,      
-      price: (json['price'] as num).toDouble(),       
-      description: json['description'] as String,     
+      id: json['id'] as String,
+      name: json['name'] as String,
+      price: (json['price'] as num).toDouble(),
+      description: json['description'] as String,
       photoId: json['photoId'] as String?,
     );
   }
@@ -32,5 +32,8 @@ class BasketDto {
       'photoId': photoId,
     };
   }
-}
 
+  String toMessage() {
+    return "Olá! Gostaria de fazer o pedido de uma cesta $name!\nItens: $description\nR\$ $price.";
+  }
+}

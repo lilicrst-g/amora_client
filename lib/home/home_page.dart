@@ -111,6 +111,7 @@ class _HomePageState extends State<HomePage> {
           price: productData.price,
           description: productData.description,
           imagePath: productData.photoId,
+          dto: productData,
         );
       },
     );

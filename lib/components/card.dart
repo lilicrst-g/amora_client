@@ -1,4 +1,5 @@
 import 'package:amora_client/basket/basket_page.dart';
+import 'package:amora_client/dto/basket_dto.dart';
 import 'package:flutter/material.dart';
 
 class BCard extends StatelessWidget {
@@ -7,14 +8,16 @@ class BCard extends StatelessWidget {
   final double price;
   final String description;
   final String? imagePath;
+  final BasketDto dto;
 
   const BCard({
-    super.key, 
-    required this.id, 
-    required this.title, 
-    required this.price, 
-    required this.description, 
+    super.key,
+    required this.id,
+    required this.title,
+    required this.price,
+    required this.description,
     required this.imagePath,
+    required this.dto,
   });
 
   @override
@@ -22,20 +25,22 @@ class BCard extends StatelessWidget {
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+
       child: InkWell(
         onTap: () {
-          print('Card de Produto Clicado: $title'); 
-          Navigator.of(context).pushNamed(BasketPage.routeName, arguments: {
-            'id': id,
-            'title': title,
-            'price': price,
-            'description': description,
-            'imagePath': imagePath,
-          }); 
+          print('Card de Produto Clicado: $title');
+          Navigator.of(context).pushNamed(
+            BasketPage.routeName,
+            arguments: {
+              'id': id,
+              'title': title,
+              'price': price,
+              'description': description,
+              'imagePath': imagePath,
+              'dto': dto
+            },
+          );
         },
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -47,16 +52,16 @@ class BCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: AssetImage(imagePath ?? ''), 
+                    image: AssetImage(imagePath ?? ''),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 10),
 
               Text(
-                title, 
+                title,
                 style: const TextStyle(
                   fontFamily: 'Varta',
                   fontSize: 22,
@@ -64,15 +69,12 @@ class BCard extends StatelessWidget {
                   color: Colors.brown,
                 ),
               ),
-              
+
               const SizedBox(height: 5),
-              
+
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[700],
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey[700]),
               ),
 
               const SizedBox(height: 10),
@@ -80,7 +82,7 @@ class BCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "R\$ ${price.toStringAsFixed(2)}", 
+                  "R\$ ${price.toStringAsFixed(2)}",
                   style: const TextStyle(
                     fontFamily: 'Varta',
                     fontSize: 16,
