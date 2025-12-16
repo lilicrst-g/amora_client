@@ -8,7 +8,8 @@
         {
             "name": "amora_client",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": ["--web-port", "8484"]
         },
         {
             "name": "amora_client (profile mode)",
